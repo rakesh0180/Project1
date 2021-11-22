@@ -1,25 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { lazy } from "react";
+import { Switch, Route } from "react-router-dom";
+import { Container } from "react-bootstrap";
 
-function App() {
+const AssociatePanelContainer = lazy(() =>
+  import(
+    /* webpackChunkName:"AssociatePanel" */ "./component/AssociatePanel/AssociatePanelContainer"
+  )
+);
+const OpenPositionContainer = lazy(() =>
+  import(
+    /* webpackChunkName:"OpenPosition" */ "./component/OpenPosition/OpenPositionContainer"
+  )
+);
+const CandidatesContainer = lazy(() =>
+  import(
+    /* webpackChunkName:"Candidates" */ "./component/Candidate/CandidatesContainer"
+  )
+);
+const Navbar = lazy(() =>
+  import(/* webpackChunkName:"Navbar" */ "./component/Navbar")
+);
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navbar />
+      <Container fluid>
+        <Switch>
+          <Route
+            path="/OpenPosition"
+            component={OpenPositionContainer}
+            exact={true}
+          />
+          <Route
+            path="/Candidates"
+            component={CandidatesContainer}
+            exact={true}
+          />
+          <Route
+            path="/AssociatePanel"
+            component={AssociatePanelContainer}
+            exact={true}
+          />
+        </Switch>
+      </Container>
+    </>
   );
-}
+};
 
 export default App;
